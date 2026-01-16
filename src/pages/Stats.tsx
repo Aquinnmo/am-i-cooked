@@ -162,7 +162,7 @@ const Stats = () => {
   if (isLoading) return (
     <div className="loading-container">
       <div className="spinner"></div>
-      <p>Loading survey data...</p>
+      <p>Loading survey data. This may take a few minutes...</p>
     </div>
   );
 
