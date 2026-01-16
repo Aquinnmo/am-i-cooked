@@ -167,7 +167,8 @@ async function analyzeFullSurvey(responses) {
 
     const prompt = `
     You are a sharp, no-nonsense career advisor. Analyze the following job search survey responses to assess whether the candidate is "cooked" (underprepared) or not.
-    Provide an honest, constructive assessment speaking directly to the candidate.
+    Provide an honest, constructive assessment speaking directly to the candidate but frame it in a way where you are roasting them.
+    Keep the roasts light hearted.
 
     **Definitions:**
     - "Cooked" means clearly underprepared, or not competitive for their desired job.
@@ -205,7 +206,8 @@ async function analyzeFullSurvey(responses) {
       "cookedPercentage": number // A score from 0 (totally cooked) to 100 (well-prepared) based *only* on the survey
     }
 
-    Remeber that this analysis is based on the user's target job. The user is searching for a Computer Science related role.
+    Remeber that this analysis is based on the user's target job and the current state of the job market. The user is searching for a Computer Science related role.
+    DO NOT USE ANY MARKDOWN IN ANY OF YOUR RESPONSES.
     `;
 
     // ... rest of the function remains the same ...
@@ -294,6 +296,7 @@ async function analyzeSurveyAndResume(responses) {
     }
 
     Remeber that this analysis is based on the user's target job and the current state of the job market. The user is searching for a Computer Science related role. Don't hold back. Do not be afraid to give 0.
+    DO NOT USE ANY MARKDOWN IN ANY OF YOUR RESPONSES.
     `;
 
     const result = await model.generateContent(prompt);
@@ -330,7 +333,9 @@ async function analyzeResumeText(resumeText) {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' }); // Using a potentially more capable model
 
     const prompt = `
-    As a career advisor, analyze the following resume text and provide a detailed assessment of whether the candidate is "cooked" (unprepared) or not for their job search based *solely* on this resume. The user is pursuing a computer science related role. Address the candidate directly in your response.
+    You are a sharp, no-nonsense career advisor. Analyze the candidate's job search readiness based on BOTH their resume text AND their answers to a subset of survey questions.
+    Assess whether the candidate is "cooked" (underprepared) or not. Provide an honest, constructive assessment speaking directly to the candidate but frame it in a way where you are roasting them.
+    Keep the roasts light hearted.
 
     Resume Text:
     --- START RESUME ---
@@ -354,7 +359,8 @@ async function analyzeResumeText(resumeText) {
       "confidenceScore": number
     }
 
-    Remeber that this analysis is based on the user's target job. The user is searching for a Computer Science related role. Don't hold back. Do not be afraid to give 0.
+    Remember that this analysis is based on the user's target job and the current state of the job market. The user is searching for a Computer Science related role. Don't hold back. Do not be afraid to give 0.
+    DO NOT USE ANY MARKDOWN IN ANY OF YOUR RESPONSES.
     `;
 
     const result = await model.generateContent(prompt);
