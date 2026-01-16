@@ -226,7 +226,7 @@ const Survey = () => {
     };
 
     try {
-      const response = await fetch('https://am-i-cooked-vssc.onrender.com/api/survey', {
+      const response = await fetch('https://am-i-cooked.onrender.com/api/survey', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

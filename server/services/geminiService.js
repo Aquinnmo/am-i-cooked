@@ -159,7 +159,7 @@ const resumeQuestionIds = new Set([
 // Function to analyze responses from the full survey
 async function analyzeFullSurvey(responses) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' }); // Updated model
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' }); // Updated model
 
     // Filter out resumeText if it accidentally got passed
     const surveyOnlyResponses = { ...responses };
