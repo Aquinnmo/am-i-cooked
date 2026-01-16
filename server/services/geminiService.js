@@ -159,7 +159,7 @@ const resumeQuestionIds = new Set([
 // Function to analyze responses from the full survey
 async function analyzeFullSurvey(responses) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' }); // Updated model
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' }); // Updated model
 
     // Filter out resumeText if it accidentally got passed
     const surveyOnlyResponses = { ...responses };
@@ -239,7 +239,7 @@ async function analyzeFullSurvey(responses) {
 // Function to analyze responses from the partial survey AND resume text
 async function analyzeSurveyAndResume(responses) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
     const { resumeText, ...partialSurveyAnswers } = responses;
 
@@ -256,7 +256,9 @@ async function analyzeSurveyAndResume(responses) {
 
 
     const prompt = `
-    You are a sharp, no-nonsense career advisor. Analyze the candidate's job search readiness based on BOTH their resume text AND their answers to a subset of survey questions. Assess whether the candidate is "cooked" (underprepared) or not. Provide an honest, constructive assessment speaking directly to the candidate.
+    You are a sharp, no-nonsense career advisor. Analyze the candidate's job search readiness based on BOTH their resume text AND their answers to a subset of survey questions.
+    Assess whether the candidate is "cooked" (underprepared) or not. Provide an honest, constructive assessment speaking directly to the candidate but frame it in a way where you are roasting them.
+    Keep the roasts light hearted.
 
     **Definitions:**
     - "Cooked" means clearly underprepared, lacking direction, or not competitive for their desired job based on the combined information.
@@ -291,7 +293,7 @@ async function analyzeSurveyAndResume(responses) {
       "cookedPercentage": number // A score from 0 (totally cooked) to 100 (well-prepared) based on *both* inputs. 0 means the user will be unlikely to get the specific job they are looking for, and 100 means they will get the specific job they are looking for.
     }
 
-    Remeber that this analysis is based on the user's target job. The user is searching for a Computer Science related role. Don't hold back. Do not be afraid to give 0.
+    Remeber that this analysis is based on the user's target job and the current state of the job market. The user is searching for a Computer Science related role. Don't hold back. Do not be afraid to give 0.
     `;
 
     const result = await model.generateContent(prompt);
@@ -325,7 +327,7 @@ async function analyzeSurveyAndResume(responses) {
 async function analyzeResumeText(resumeText) {
   // ... (keep existing implementation or remove if redundant) ...
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' }); // Using a potentially more capable model
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' }); // Using a potentially more capable model
 
     const prompt = `
     As a career advisor, analyze the following resume text and provide a detailed assessment of whether the candidate is "cooked" (unprepared) or not for their job search based *solely* on this resume. The user is pursuing a computer science related role. Address the candidate directly in your response.
