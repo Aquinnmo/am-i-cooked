@@ -122,8 +122,8 @@ function App() {
           <Route path="/stats" element={<Stats />} />
           <Route path="/easter-egg" element={<EasterEgg />} />
         </Routes>
-      </div>
       <Analytics/>
+      </div>
     </Router>
   );
 }
