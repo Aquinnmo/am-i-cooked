@@ -7,6 +7,7 @@ import Results from './pages/Results'
 import Stats from './pages/Stats'
 import EasterEgg from './pages/EasterEgg'
 import Footer from './components/Footer'
+import { Analytics } from '@vercel/analytics/next'
 
 // Separate component for the home page content
 const Home = () => {
@@ -122,6 +123,7 @@ function App() {
           <Route path="/easter-egg" element={<EasterEgg />} />
         </Routes>
       </div>
+      <Analytics/>
     </Router>
   );
 }
