@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Survey.css';
 import { FaHome } from 'react-icons/fa';
+import { API_BASE } from '../api';
 
 interface SurveyAnswers {
   [key: string]: string;
@@ -226,7 +227,7 @@ const Survey = () => {
     };
 
     try {
-      const response = await fetch('https://am-i-cooked.onrender.com/api/survey', {
+      const response = await fetch(`${API_BASE}/api/survey`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,0 +1,16 @@
+services:
+  app:
+    image: ghcr.io/aquinnmo/am-i-cooked:latest
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - "5000"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel run
+    restart: unless-stopped
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - app

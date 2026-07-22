@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import './Stats.css';
+import { API_BASE } from '../api';
 
 interface SurveyData {
   _id: string; // Assuming the API transforms the MongoDB ObjectId to a string
@@ -143,7 +144,7 @@ const Stats = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch('https://am-i-cooked.onrender.com/api/survey/stats');
+        const response = await fetch(`${API_BASE}/api/survey/stats`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data: SurveyData[] = await response.json();
         setSurveys(data);

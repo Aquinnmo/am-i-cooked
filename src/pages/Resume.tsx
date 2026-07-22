@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
+import { API_BASE } from '../api';
 
 const Resume: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -54,7 +55,7 @@ const Resume: React.FC = () => {
       const base64 = (reader.result as string).split(',')[1];
 
       try {
-        const response = await fetch('https://am-i-cooked.onrender.com/api/parse-pdf', {
+        const response = await fetch(`${API_BASE}/api/parse-pdf`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ file: base64 }),

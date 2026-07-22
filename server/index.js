@@ -9,8 +9,13 @@ const { analyzeFullSurvey, analyzeSurveyAndResume, analyzeResumeText } = require
 const app = express();
 
 // Middleware
-// Allow all origins
-app.use(cors());
+// Only the frontend origins we control may call this API from a browser
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  'https://am-i-cooked-zeta.vercel.app,http://localhost:5173'
+).split(',');
+
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: '10mb' }));
 
 // MongoDB Connection with retry logic
@@ -164,6 +169,10 @@ app.post('/api/analyze-resume', async (req, res) => {
     });
   }
 });
+
+app.get('/health', (req, res) =>
+  res.json({ ok: true, db: mongoose.connection.readyState === 1 })
+);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
