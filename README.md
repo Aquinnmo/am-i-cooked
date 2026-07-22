@@ -68,6 +68,13 @@ The frontend will run on [http://localhost:5173](http://localhost:5173) and the 
 ## Environment Variables (Backend)
 - `MONGODB_URI` — MongoDB connection string
 - `GEMINI_API_KEY` — Google Gemini API key
+- `ALLOWED_ORIGINS` — comma-separated browser origins allowed to call the API (defaults to the Vercel URL and `http://localhost:5173`)
+
+## Environment Variables (Frontend)
+- `VITE_API_URL` — backend base URL; falls back to the Render deployment when unset
+
+## Self-hosting
+The backend runs on a Raspberry Pi 5 in Docker behind a Cloudflare Tunnel. See [DEPLOY.md](DEPLOY.md).
 
 ## The Three Driven Devs
 - [Adam Montgomery](https://www.linkedin.com/in/adam-montgomery-05a936315/)
